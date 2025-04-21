@@ -32,6 +32,8 @@ const typeDefs = `
 
   type Mutation {
     createTask(input: CreateTaskInput!): Task!
+    updateTask(id: ID!, input: CreateTaskInput!): Task!
+    deleteTask(id: ID!): Boolean!
   }
 `;
 
@@ -67,6 +69,21 @@ const resolvers = {
       };
       tasks.push(newTask);
       return newTask;
+    },
+    updateTask: (_, { id, input }) => {
+      const taskIndex = tasks.findIndex((task) => task.id === id);
+      const updatedTask = {
+        ...tasks[taskIndex],
+        ...input,
+      };
+      tasks[taskIndex] = updatedTask;
+      return updatedTask;
+    },
+    deleteTask: (_, { id }) => {
+      const taskIndex = tasks.findIndex((task) => task.id === id);
+      if (taskIndex === -1) return false;
+      tasks.splice(taskIndex, 1);
+      return true;
     },
   },
 };

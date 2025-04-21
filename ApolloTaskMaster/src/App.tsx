@@ -1,6 +1,6 @@
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import './App.css';
-import { GET_TASKS } from './graphql/queries';
+import { GET_TASKS, DELETE_TASK } from './graphql/queries';
 import Form from './components/form';
 
 interface Task {
@@ -14,6 +14,13 @@ interface Task {
 
 function App() {
   const { loading, error, data } = useQuery(GET_TASKS);
+  const [deleteTask] = useMutation(DELETE_TASK, {
+    refetchQueries: [{ query: GET_TASKS }],
+  });
+
+  const handleDelete = async (id: string) => {
+    await deleteTask({ variables: { id } });
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -43,7 +50,7 @@ function App() {
               <td>{task.priority}</td>
               <td>{task.dueDate}</td>
               <button>Edit</button>
-              <button>Delete</button>
+              <button onClick={() => handleDelete(task.id)}>Delete</button>
             </tr>
           ))}
         </tbody>
