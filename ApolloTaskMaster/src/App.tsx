@@ -2,6 +2,16 @@ import { useQuery, useMutation } from '@apollo/client';
 import './App.css';
 import { GET_TASKS, DELETE_TASK } from './graphql/queries';
 import Form from './components/form';
+import { Button } from './components/ui/button';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from './components/ui/table';
 
 interface Task {
   id: string;
@@ -25,36 +35,41 @@ function App() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log('Query data:', data);
-
   return (
     <div>
-      <h1>Apollo Task Master</h1>
-
-      <table className='task-table'>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Priority</th>
-            <th>Due Date</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableCaption>Apollo Task Master</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Title</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Priority</TableHead>
+            <TableHead>Due Date</TableHead>
+            <TableHead>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {data?.tasks.map((task: Task) => (
-            <tr key={task.id}>
-              <td>{task.title}</td>
-              <td>{task.description}</td>
-              <td>{task.status}</td>
-              <td>{task.priority}</td>
-              <td>{task.dueDate}</td>
-              <button>Edit</button>
-              <button onClick={() => handleDelete(task.id)}>Delete</button>
-            </tr>
+            <TableRow key={task.id}>
+              <TableCell className='text-left'>{task.title}</TableCell>
+              <TableCell className='text-left'>{task.description}</TableCell>
+              <TableCell className='text-left'>{task.status}</TableCell>
+              <TableCell className='text-left'>{task.priority}</TableCell>
+              <TableCell className='text-left'>{task.dueDate}</TableCell>
+              <TableCell className='text-left'>
+                <Button variant={'outline'}>Edit</Button>
+                <Button
+                  variant={'destructive'}
+                  onClick={() => handleDelete(task.id)}
+                >
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
       <Form />
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_TASK, GET_TASKS } from '../graphql/queries';
+import { Button } from './ui/button';
 
 interface TaskForm {
   title: string;
@@ -111,7 +112,9 @@ const Form = () => {
           onChange={handleChange}
         />
       </div>
-      <button type='submit'>Add Task</button>
+      <Button variant={'secondary'} type='submit'>
+        Add Task
+      </Button>
     </form>
   );
 };
