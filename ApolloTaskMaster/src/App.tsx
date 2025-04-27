@@ -4,7 +4,7 @@ import TaskTable from './components/TaskTable';
 
 function App() {
   return (
-    <Card>
+    <Card className='p-2'>
       <TaskTable />
     </Card>
   );

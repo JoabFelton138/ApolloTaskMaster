@@ -37,12 +37,11 @@ const Form = () => {
   };
 
   const handleSubmit = async () => {
-    e.preventDefault();
     console.log('Submitting form data:', formData);
     try {
       const result = await createTask({
         variables: {
-          Input: formData,
+          input: formData,
         },
       });
       console.log('Mutation result:', result);

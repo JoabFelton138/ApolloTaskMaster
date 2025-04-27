@@ -50,14 +50,17 @@ const TaskTable = () => {
       <TableBody>
         {data?.tasks.map((task: Task) => (
           <TableRow key={task.id}>
-            <TableCell className='text-left'>{task.title}</TableCell>
-            <TableCell className='text-left'>{task.description}</TableCell>
-            <TableCell className='text-left'>{task.status}</TableCell>
-            <TableCell className='text-left'>{task.priority}</TableCell>
-            <TableCell className='text-left'>{task.dueDate}</TableCell>
-            <TableCell className='text-left'>
-              <Button variant={'outline'}>Edit</Button>
+            <TableCell>{task.title}</TableCell>
+            <TableCell>{task.description}</TableCell>
+            <TableCell>{task.status}</TableCell>
+            <TableCell>{task.priority}</TableCell>
+            <TableCell>{task.dueDate}</TableCell>
+            <TableCell className='flex gap-1'>
+              <Button size={'sm'} variant={'outline'}>
+                Edit
+              </Button>
               <Button
+                size={'sm'}
                 variant={'destructive'}
                 onClick={() => handleDelete(task.id)}
               >
