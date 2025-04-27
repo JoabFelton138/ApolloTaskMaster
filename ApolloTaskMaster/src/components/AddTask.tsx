@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_TASK, GET_TASKS } from '../graphql/queries';
 import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
+import { TableCell, TableRow } from './ui/table';
 
 interface TaskForm {
   title: string;
@@ -33,13 +36,13 @@ const Form = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async () => {
     e.preventDefault();
     console.log('Submitting form data:', formData);
     try {
       const result = await createTask({
         variables: {
-          input: formData,
+          Input: formData,
         },
       });
       console.log('Mutation result:', result);
@@ -56,66 +59,61 @@ const Form = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor='title'>Title</label>
-        <input
+    <TableRow>
+      <TableCell>
+        <Input
           type='text'
-          id='title'
           name='title'
           value={formData.title}
           onChange={handleChange}
+          placeholder='Title'
         />
-      </div>
-      <div>
-        <label htmlFor='description'>Description</label>
-        <textarea
-          id='description'
+      </TableCell>
+      <TableCell>
+        <Textarea
           name='description'
           value={formData.description}
           onChange={handleChange}
+          placeholder='Description'
+          className='h-10'
         />
-      </div>
-      <div>
-        <label htmlFor='status'>Status</label>
+      </TableCell>
+      <TableCell>
         <select
-          id='status'
           name='status'
           value={formData.status}
           onChange={handleChange}
+          className='w-full h-10 rounded-md border border-input bg-background px-3 py-2'
         >
           <option value='TODO'>To Do</option>
           <option value='IN_PROGRESS'>In Progress</option>
           <option value='COMPLETED'>Completed</option>
         </select>
-      </div>
-      <div>
-        <label htmlFor='priority'>Priority</label>
+      </TableCell>
+      <TableCell>
         <select
-          id='priority'
           name='priority'
           value={formData.priority}
           onChange={handleChange}
+          className='w-full h-10 rounded-md border border-input bg-background px-3 py-2'
         >
           <option value='LOW'>Low</option>
           <option value='MEDIUM'>Medium</option>
           <option value='HIGH'>High</option>
         </select>
-      </div>
-      <div>
-        <label htmlFor='dueDate'>Due Date</label>
-        <input
+      </TableCell>
+      <TableCell>
+        <Input
           type='date'
-          id='dueDate'
           name='dueDate'
           value={formData.dueDate}
           onChange={handleChange}
         />
-      </div>
-      <Button variant={'secondary'} type='submit'>
-        Add Task
-      </Button>
-    </form>
+      </TableCell>
+      <TableCell>
+        <Button onClick={handleSubmit}>Add Task</Button>
+      </TableCell>
+    </TableRow>
   );
 };
 
