@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
+import { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -11,6 +12,7 @@ import {
 import { DELETE_TASK, GET_TASKS } from '@/graphql/queries';
 import { Button } from './ui/button';
 import AddTask from './AddTask';
+import EditTask from './EditTask';
 
 interface Task {
   id: string;
@@ -22,6 +24,7 @@ interface Task {
 }
 
 const TaskTable = () => {
+  const [editingId, setIsEditingId] = useState<string | null>(null);
   const [deleteTask] = useMutation(DELETE_TASK, {
     refetchQueries: [{ query: GET_TASKS }],
   });
@@ -50,23 +53,33 @@ const TaskTable = () => {
       <TableBody>
         {data?.tasks.map((task: Task) => (
           <TableRow key={task.id}>
-            <TableCell>{task.title}</TableCell>
-            <TableCell>{task.description}</TableCell>
-            <TableCell>{task.status}</TableCell>
-            <TableCell>{task.priority}</TableCell>
-            <TableCell>{task.dueDate}</TableCell>
-            <TableCell className='flex gap-1'>
-              <Button size={'sm'} variant={'outline'}>
-                Edit
-              </Button>
-              <Button
-                size={'sm'}
-                variant={'destructive'}
-                onClick={() => handleDelete(task.id)}
-              >
-                Delete
-              </Button>
-            </TableCell>
+            {editingId === task.id ? (
+              <EditTask />
+            ) : (
+              <>
+                <TableCell>{task.title}</TableCell>
+                <TableCell>{task.description}</TableCell>
+                <TableCell>{task.status}</TableCell>
+                <TableCell>{task.priority}</TableCell>
+                <TableCell>{task.dueDate}</TableCell>
+                <TableCell className='flex gap-1'>
+                  <Button
+                    size={'sm'}
+                    variant={'outline'}
+                    onClick={() => setIsEditingId(task.id)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    size={'sm'}
+                    variant={'destructive'}
+                    onClick={() => handleDelete(task.id)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </>
+            )}
           </TableRow>
         ))}
         <AddTask />

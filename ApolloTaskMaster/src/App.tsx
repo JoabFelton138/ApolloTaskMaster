@@ -1,6 +1,6 @@
 import './App.css';
+import TaskTable from './components/taskTable';
 import { Card } from './components/ui/card';
-import TaskTable from './components/TaskTable';
 
 function App() {
   return (

@@ -74,7 +74,7 @@ const Form = () => {
           value={formData.description}
           onChange={handleChange}
           placeholder='Description'
-          className='h-10'
+          className='h-10 resize-none'
         />
       </TableCell>
       <TableCell>
