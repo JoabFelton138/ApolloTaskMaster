@@ -1,5 +1,9 @@
+import { DELETE_TASK, GET_TASKS } from '@/graphql/queries';
 import { useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
+import AddTask from './AddTask';
+import EditTask from './EditTask';
+import { Button } from './ui/button';
 import {
   Table,
   TableBody,
@@ -9,10 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from './ui/table';
-import { DELETE_TASK, GET_TASKS } from '@/graphql/queries';
-import { Button } from './ui/button';
-import AddTask from './AddTask';
-import EditTask from './EditTask';
 
 interface Task {
   id: string;
@@ -31,7 +31,7 @@ const TaskTable = () => {
 
   const handleCancel = () => {
     setIsEditingId(null);
-  }
+  };
 
   const handleDelete = async (id: string) => {
     await deleteTask({ variables: { id } });
@@ -58,7 +58,7 @@ const TaskTable = () => {
         {data?.tasks.map((task: Task) => (
           <TableRow key={task.id}>
             {editingId === task.id ? (
-              <EditTask onCancel={handleCancel}/>
+              <EditTask task={task} onCancel={handleCancel} />
             ) : (
               <>
                 <TableCell>{task.title}</TableCell>
@@ -66,7 +66,7 @@ const TaskTable = () => {
                 <TableCell>{task.status}</TableCell>
                 <TableCell>{task.priority}</TableCell>
                 <TableCell>{task.dueDate}</TableCell>
-                <TableCell className='flex gap-1'>
+                <TableCell className="flex gap-1">
                   <Button
                     size="sm"
                     variant="outline"

@@ -5,9 +5,9 @@ import { Card } from './components/ui/card';
 function App() {
   return (
     <div className="grid place-items-center">
-      <Card className="p-4">
-        <TaskTable />
-      </Card>
+        <Card className="p-4">
+          <TaskTable />
+        </Card>
     </div>
   );
 }
