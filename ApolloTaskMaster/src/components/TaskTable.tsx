@@ -29,6 +29,10 @@ const TaskTable = () => {
     refetchQueries: [{ query: GET_TASKS }],
   });
 
+  const handleCancel = () => {
+    setIsEditingId(null);
+  }
+
   const handleDelete = async (id: string) => {
     await deleteTask({ variables: { id } });
   };
@@ -54,7 +58,7 @@ const TaskTable = () => {
         {data?.tasks.map((task: Task) => (
           <TableRow key={task.id}>
             {editingId === task.id ? (
-              <EditTask />
+              <EditTask onCancel={handleCancel}/>
             ) : (
               <>
                 <TableCell>{task.title}</TableCell>
@@ -64,15 +68,15 @@ const TaskTable = () => {
                 <TableCell>{task.dueDate}</TableCell>
                 <TableCell className='flex gap-1'>
                   <Button
-                    size={'sm'}
-                    variant={'outline'}
+                    size="sm"
+                    variant="outline"
                     onClick={() => setIsEditingId(task.id)}
                   >
                     Edit
                   </Button>
                   <Button
-                    size={'sm'}
-                    variant={'destructive'}
+                    size="sm"
+                    variant="destructive"
                     onClick={() => handleDelete(task.id)}
                   >
                     Delete

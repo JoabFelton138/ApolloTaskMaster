@@ -3,7 +3,11 @@ import { Textarea } from './ui/textarea';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 
-export default function EditTask() {
+interface EditTaskProps {
+  onCancel: () => void;
+}
+
+export default function EditTask({onCancel} : EditTaskProps) {
   return (
     <>
       <TableCell>
@@ -56,8 +60,9 @@ export default function EditTask() {
           //   onChange={handleChange}
         />
       </TableCell>
-      <TableCell>
-        <Button size={'sm'}>Submit</Button>
+      <TableCell className="flex gap-1 pt-5.5">
+        <Button size="sm" variant="outline" onClick={onCancel}>Cancel</Button>
+        <Button size="sm">Submit</Button>
       </TableCell>
     </>
   );
