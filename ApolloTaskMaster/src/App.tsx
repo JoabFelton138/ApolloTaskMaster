@@ -1,12 +1,14 @@
 import './App.css';
-import TaskTable from './components/taskTable';
+import TaskTable from './components/TaskTable';
 import { Card } from './components/ui/card';
 
 function App() {
   return (
-    <Card className='p-2'>
-      <TaskTable />
-    </Card>
+    <div className="grid place-items-center">
+      <Card className="p-4">
+        <TaskTable />
+      </Card>
+    </div>
   );
 }
 
