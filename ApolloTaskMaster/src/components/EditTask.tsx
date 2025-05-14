@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { TableCell } from './ui/table';
-import { Textarea } from './ui/textarea';
 
 interface Task {
   id: string;
@@ -18,7 +18,25 @@ interface EditTaskProps {
 }
 
 export default function EditTask({ task, onCancel }: EditTaskProps) {
+  const [editTask, setEditTask] = useState<Task>({
+    id: task.id,
+    title: task.title,
+    description: task.description,
+    status: task.status,
+    priority: task.priority,
+    dueDate: task.dueDate,
+  });
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setEditTask((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    console.log(editTask);
+  };
 
   return (
     <>
@@ -26,25 +44,24 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
         <Input
           type="text"
           name="title"
-          value={task.title}
-          //onChange={handleChange}
+          value={editTask.title}
+          onChange={handleChange}
           placeholder="Title"
         />
       </TableCell>
       <TableCell>
-        <Textarea
+        <Input
           name="description"
-          value={task.description}
-          //onChange={handleChange}
+          value={editTask.description}
+          onChange={handleChange}
           placeholder="Description"
-          className="h-10 resize-none"
         />
       </TableCell>
       <TableCell>
         <select
           name="status"
-          value={task.status}
-          //onChange={handleChange}
+          value={editTask.status}
+          onChange={handleChange}
           className="w-full h-10 rounded-md border border-input bg-background px-3 py-2"
         >
           <option value="TODO">To Do</option>
@@ -55,8 +72,8 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
       <TableCell>
         <select
           name="priority"
-          value={task.priority}
-          //onChange={handleChange}
+          value={editTask.priority}
+          onChange={handleChange}
           className="w-full h-10 rounded-md border border-input bg-background px-3 py-2"
         >
           <option value="LOW">Low</option>
@@ -68,15 +85,15 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
         <Input
           type="date"
           name="dueDate"
-          value={task.dueDate}
-          //onChange={handleChange}
+          value={editTask.dueDate}
+          onChange={handleChange}
         />
       </TableCell>
       <TableCell className="flex gap-1 pt-5.5">
         <Button size="sm" variant="outline" onClick={onCancel}>
           Cancel
         </Button>
-        <Button size="sm">
+        <Button size="sm" onClick={handleSubmit}>
           Submit
         </Button>
       </TableCell>
