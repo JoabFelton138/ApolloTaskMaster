@@ -2,6 +2,7 @@ import { UPDATE_TASK } from '@/graphql/mutations';
 import { GET_TASKS } from '@/graphql/queries';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { TableCell } from './ui/table';
@@ -48,9 +49,11 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
           },
         },
       });
+      toast.success('Task updated successfully');
       onCancel();
     } catch (error) {
       console.error('Error updating task:', error);
+      toast.error('Error updating task');
     }
   };
 

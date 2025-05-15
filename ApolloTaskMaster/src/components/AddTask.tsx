@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 import { CREATE_TASK } from '../graphql/mutations';
 import { GET_TASKS } from '../graphql/queries';
 import { Button } from './ui/button';
@@ -38,7 +39,6 @@ const Form = () => {
   };
 
   const handleSubmit = async () => {
-    console.log('Submitting form data:', formData);
     try {
       await createTask({
         variables: {
@@ -52,8 +52,10 @@ const Form = () => {
         priority: 'LOW',
         dueDate: '',
       });
+      toast.success('Task created successfully');
     } catch (error) {
       console.error('Error creating task:', error);
+      toast.error('Error creating task');
     }
   };
 

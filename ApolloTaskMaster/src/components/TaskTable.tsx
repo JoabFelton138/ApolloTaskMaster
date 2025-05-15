@@ -2,6 +2,7 @@ import { DELETE_TASK } from '@/graphql/mutations';
 import { GET_TASKS } from '@/graphql/queries';
 import { useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import AddTask from './AddTask';
 import EditTask from './EditTask';
 import { Button } from './ui/button';
@@ -36,6 +37,7 @@ const TaskTable = () => {
 
   const handleDelete = async (id: string) => {
     await deleteTask({ variables: { id } });
+    toast.success('Task deleted successfully');
   };
 
   const { loading, error, data } = useQuery(GET_TASKS);
