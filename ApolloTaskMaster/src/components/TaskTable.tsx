@@ -1,4 +1,5 @@
-import { DELETE_TASK, GET_TASKS } from '@/graphql/queries';
+import { DELETE_TASK } from '@/graphql/mutations';
+import { GET_TASKS } from '@/graphql/queries';
 import { useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
 import AddTask from './AddTask';

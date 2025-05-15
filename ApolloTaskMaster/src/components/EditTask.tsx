@@ -1,3 +1,6 @@
+import { UPDATE_TASK } from '@/graphql/mutations';
+import { GET_TASKS } from '@/graphql/queries';
+import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -27,15 +30,35 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
     dueDate: task.dueDate,
   });
 
+  const [updateTask] = useMutation(UPDATE_TASK, {
+    refetchQueries: [{ query: GET_TASKS }],
+  });
+
+  const handleSubmit = async () => {
+    try {
+      await updateTask({
+        variables: {
+          id: task.id,
+          input: {
+            title: editTask.title,
+            description: editTask.description,
+            status: editTask.status,
+            priority: editTask.priority,
+            dueDate: editTask.dueDate,
+          },
+        },
+      });
+      onCancel();
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setEditTask((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = () => {
-    console.log(editTask);
   };
 
   return (
@@ -89,7 +112,7 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
           onChange={handleChange}
         />
       </TableCell>
-      <TableCell className="flex gap-1 pt-5.5">
+      <TableCell className="flex gap-1 pt-2.5">
         <Button size="sm" variant="outline" onClick={onCancel}>
           Cancel
         </Button>

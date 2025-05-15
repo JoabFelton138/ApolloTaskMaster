@@ -27,6 +27,14 @@ interface CreateTaskInput {
   dueDate: string;
 }
 
+interface UpdateTaskInput {
+  title: string;
+  description: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+  dueDate: string;
+}
+
 const tasks: Task[] = [
   {
     id: '1',
@@ -55,6 +63,19 @@ export const resolvers = {
       };
       tasks.push(newTask);
       return newTask;
+    },
+    updateTask: (
+      _: unknown,
+      { id, input }: { id: string; input: UpdateTaskInput }
+    ) => {
+      const taskIndex = tasks.findIndex((task) => task.id === id);
+
+      if (taskIndex !== -1) {
+        const modifiedTask = { ...tasks[taskIndex], ...input };
+        tasks[taskIndex] = modifiedTask;
+        return modifiedTask;
+      }
+      return null;
     },
   },
 };

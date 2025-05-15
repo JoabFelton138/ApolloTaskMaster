@@ -1,27 +1,47 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const typeDefs = `
+  enum TaskStatus {
+    TODO
+    IN_PROGRESS
+    COMPLETED
+  }
+
+  enum TaskPriority {
+    LOW
+    MEDIUM
+    HIGH
+  }
+
   type Task {
     id: ID!
     title: String!
     description: String
-    status: String!
-    priority: String!
+    status: TaskStatus!
+    priority: TaskPriority!
     dueDate: String!
   }
 
   input CreateTaskInput {
     title: String!
     description: String
-    status: String!
-    priority: String!
+    status: TaskStatus!
+    priority: TaskPriority!
+    dueDate: String!
+  }
+
+  input UpdateTaskInput {
+    title: String!
+    description: String
+    status: TaskStatus!
+    priority: TaskPriority!
     dueDate: String!
   }
 
@@ -32,7 +52,7 @@ const typeDefs = `
 
   type Mutation {
     createTask(input: CreateTaskInput!): Task!
-    updateTask(id: ID!, input: CreateTaskInput!): Task!
+    updateTask(id: ID!, input: UpdateTaskInput!): Task!
     deleteTask(id: ID!): Boolean!
   }
 `;
