@@ -1,12 +1,12 @@
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
-import { CREATE_TASK } from '../graphql/mutations';
-import { GET_TASKS } from '../graphql/queries';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { TableCell, TableRow } from './ui/table';
-import { Textarea } from './ui/textarea';
+import { CREATE_TASK } from '../../graphql/mutations';
+import { GET_TASKS } from '../../graphql/queries';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { TableCell, TableRow } from '../ui/table';
+import { Textarea } from '../ui/textarea';
 
 interface TaskForm {
   title: string;
