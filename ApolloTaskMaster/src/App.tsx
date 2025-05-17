@@ -6,7 +6,7 @@ import { Card } from './components/ui/card';
 function App() {
   return (
     <div className="grid place-items-center">
-      <Card className="p-4">
+      <Card className="p-[25px]">
         <TaskTable />
       </Card>
       <Toaster position="top-right" />

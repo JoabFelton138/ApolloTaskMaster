@@ -22,26 +22,32 @@ export const columns = ({
   {
     header: 'Title',
     accessorKey: 'title',
+    size: 200,
   },
   {
     header: 'Description',
     accessorKey: 'description',
+    size: 300,
   },
   {
     header: 'Status',
     accessorKey: 'status',
+    size: 150,
   },
   {
     header: 'Priority',
     accessorKey: 'priority',
+    size: 150,
   },
   {
     header: 'Due Date',
     accessorKey: 'dueDate',
+    size: 150,
   },
   {
     header: 'Actions',
     id: 'actions',
+    size: 200,
     cell: ({ row }) => (
       <div className="flex gap-1">
         <Button

@@ -73,7 +73,6 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
           value={editTask.title}
           onChange={handleChange}
           placeholder="Title"
-          className="h-9"
         />
       </TableCell>
       <TableCell>
@@ -82,7 +81,6 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
           value={editTask.description}
           onChange={handleChange}
           placeholder="Description"
-          className="h-9"
         />
       </TableCell>
       <TableCell>
@@ -90,7 +88,7 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
           name="status"
           value={editTask.status}
           onChange={handleChange}
-          className="w-full h-9 rounded-md border border-input bg-background px-3 py-1"
+          className="w-full rounded-md border border-input bg-background px-3 py-1"
         >
           <option value="TODO">To Do</option>
           <option value="IN_PROGRESS">In Progress</option>
@@ -102,7 +100,7 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
           name="priority"
           value={editTask.priority}
           onChange={handleChange}
-          className="w-full h-9 rounded-md border border-input bg-background px-3 py-1"
+          className="w-full rounded-md border border-input bg-background px-3 py-1"
         >
           <option value="LOW">Low</option>
           <option value="MEDIUM">Medium</option>
@@ -115,7 +113,6 @@ export default function EditTask({ task, onCancel }: EditTaskProps) {
           name="dueDate"
           value={editTask.dueDate}
           onChange={handleChange}
-          className="h-9"
         />
       </TableCell>
       <TableCell className="flex gap-1 items-center">

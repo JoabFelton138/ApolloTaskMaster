@@ -37,8 +37,8 @@ const TaskTable = () => {
         columns={tableColumns}
         data={data?.tasks || []}
         renderEditRow={renderEditRow}
+        renderFooter={() => <AddTask />}
       />
-      <AddTask />
     </div>
   );
 };

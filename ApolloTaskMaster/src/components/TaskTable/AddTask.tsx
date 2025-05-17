@@ -6,7 +6,6 @@ import { GET_TASKS } from '../../graphql/queries';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { TableCell, TableRow } from '../ui/table';
-import { Textarea } from '../ui/textarea';
 
 interface TaskForm {
   title: string;
@@ -71,12 +70,11 @@ const Form = () => {
         />
       </TableCell>
       <TableCell>
-        <Textarea
+        <Input
           name="description"
           value={formData.description}
           onChange={handleChange}
           placeholder="Description"
-          className="h-10 resize-none"
         />
       </TableCell>
       <TableCell>
@@ -84,7 +82,7 @@ const Form = () => {
           name="status"
           value={formData.status}
           onChange={handleChange}
-          className="w-full h-10 rounded-md border border-input bg-background px-3 py-2"
+          className="w-full rounded-md border border-input bg-background px-3 py-1"
         >
           <option value="TODO">To Do</option>
           <option value="IN_PROGRESS">In Progress</option>
@@ -96,7 +94,7 @@ const Form = () => {
           name="priority"
           value={formData.priority}
           onChange={handleChange}
-          className="w-full h-10 rounded-md border border-input bg-background px-3 py-2"
+          className="w-full rounded-md border border-input bg-background px-3 py-1"
         >
           <option value="LOW">Low</option>
           <option value="MEDIUM">Medium</option>
@@ -112,7 +110,9 @@ const Form = () => {
         />
       </TableCell>
       <TableCell>
-        <Button onClick={handleSubmit}>Add Task</Button>
+        <Button onClick={handleSubmit} size="sm">
+          Add Task
+        </Button>
       </TableCell>
     </TableRow>
   );
