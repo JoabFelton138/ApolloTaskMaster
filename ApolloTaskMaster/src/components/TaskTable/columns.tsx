@@ -1,5 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '../ui/button';
+import { ArrowUpDown } from 'lucide-react';
 
 export type Task = {
   id: string;
@@ -14,6 +15,12 @@ interface ColumnActions {
   setIsEditingId: (id: string) => void;
   handleDelete: (id: string) => void;
 }
+
+const priorityOrder = {
+  high: 0,
+  medium: 1,
+  low: 2,
+};
 
 export const columns = ({
   setIsEditingId,
@@ -35,9 +42,21 @@ export const columns = ({
     size: 150,
   },
   {
-    header: 'Priority',
+    header: ({ column }) => {
+      return (<Button
+      variant="ghost"
+      onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        Priority
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>)
+    },
     accessorKey: 'priority',
     size: 150,
+    sortingFn: (rowA, rowB) => {
+      const a = rowA.original.priority.toLowerCase();
+      const b = rowB.original.priority.toLowerCase();
+      return priorityOrder[a as keyof typeof priorityOrder] - priorityOrder[b as keyof typeof priorityOrder];
+    },
   },
   {
     header: 'Due Date',
