@@ -47,7 +47,16 @@ export const columns = ({
         <Button
           variant="ghost"
           className="!p-0 hover:bg-transparent"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          onClick={() => {
+            const currentSort = column.getIsSorted();
+            if (!currentSort) {
+              column.toggleSorting(true);
+            } else if (currentSort === 'asc') {
+              column.toggleSorting(false);
+            } else {
+              column.clearSorting();
+            }
+          }}>
           Priority
           <ArrowUpDown className="h-4 w-4" />
         </Button>
@@ -67,7 +76,16 @@ export const columns = ({
         <Button
           variant="ghost"
           className="!p-0 hover:bg-transparent"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          onClick={() => {
+            const currentSort = column.getIsSorted();
+            if (!currentSort) {
+              column.toggleSorting(true);
+            } else if (currentSort === 'asc') {
+              column.toggleSorting(false);
+            } else {
+              column.clearSorting();
+            }
+          }}>
           Due Date
           <ArrowUpDown className="h-4 w-4" />
         </Button>
