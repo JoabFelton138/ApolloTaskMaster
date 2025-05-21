@@ -6,6 +6,13 @@ import { GET_TASKS } from '../../graphql/queries';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { TableCell, TableRow } from '../ui/table';
+import {z} from 'zod';
+
+const taskSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
+  dueDate: z.string().min(1, "Due date is required"),
+})
 
 interface TaskForm {
   title: string;
@@ -39,6 +46,13 @@ const Form = () => {
 
   const handleSubmit = async () => {
     try {
+      const result = taskSchema.safeParse(formData);
+
+      if (!result.success) {
+        toast.error(result.error.issues[0].message);
+        return;
+      }
+
       await createTask({
         variables: {
           input: formData,
