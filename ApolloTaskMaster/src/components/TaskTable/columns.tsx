@@ -43,12 +43,15 @@ export const columns = ({
   },
   {
     header: ({ column }) => {
-      return (<Button
-      variant="ghost"
-      onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Priority
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>)
+      return (
+        <Button
+          variant="ghost"
+          className="!p-0 hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Priority
+          <ArrowUpDown className="h-4 w-4" />
+        </Button>
+      )
     },
     accessorKey: 'priority',
     size: 150,
@@ -60,11 +63,15 @@ export const columns = ({
   },
   {
     header: ({ column }) => {
-      return (<Button
-      variant="ghost"
-      onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>Due Date
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>)
+      return (
+        <Button
+          variant="ghost"
+          className="!p-0 hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Due Date
+          <ArrowUpDown className="h-4 w-4" />
+        </Button>
+      )
     },
     accessorKey: 'dueDate',
     size: 150,
